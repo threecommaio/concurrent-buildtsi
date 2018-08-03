@@ -52,7 +52,7 @@ func buildsiRun(wg *sync.WaitGroup, done chan bool, database string, shard int) 
 func main() {
 	flag.StringVar(&datadir, "datadir", "/var/lib/influxdb/data", "datadir location")
 	flag.StringVar(&waldir, "waldir", "/var/lib/influxdb/wal", "waldir location")
-	flag.IntVar(&maxLogFileSize, "max-log-file-size", 128, "max-log-file-size")
+	flag.IntVar(&maxLogFileSize, "max-log-file-size", 131072, "max-log-file-size")
 	flag.IntVar(&concurrency, "concurrency", runtime.GOMAXPROCS(0), "concurrency")
 	flag.Parse()
 
