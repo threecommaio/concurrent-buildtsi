@@ -11,7 +11,6 @@ import (
 	"strconv"
 	"strings"
 	"sync"
-	"time"
 )
 
 type Database struct {
@@ -30,7 +29,6 @@ var (
 func buildsiRun(wg *sync.WaitGroup, done chan bool, database string, shard int) {
 	defer wg.Done()
 
-	time.Sleep(1 * time.Second)
 	log.Printf("Processing (%s) on shard (%d)\n", database, shard)
 
 	cmd := exec.Command("influx_inspect", "buildtsi",
