@@ -23,6 +23,7 @@ var (
 	waldir         string
 	maxLogFileSize int
 	concurrency    int
+	verbose        bool
 	databases      []*Database
 )
 
@@ -43,7 +44,10 @@ func buildsiRun(wg *sync.WaitGroup, done chan bool, database string, shard int) 
 	if err != nil {
 		log.Fatalf("cmd.Run() failed with %s\n", err)
 	}
-	fmt.Println(string(out))
+
+	if verbose {
+		fmt.Println(string(out))
+	}
 	<-done
 }
 
@@ -52,6 +56,7 @@ func main() {
 	flag.StringVar(&waldir, "waldir", "/var/lib/influxdb/wal", "waldir location")
 	flag.IntVar(&maxLogFileSize, "max-log-file-size", 131072, "max-log-file-size")
 	flag.IntVar(&concurrency, "concurrency", runtime.GOMAXPROCS(0), "concurrency")
+	flag.BoolVar(&verbose, "verbose", false, "enable verbose mode that prints out stdout from [influx_inspect]")
 	flag.Parse()
 
 	path, err := ioutil.ReadDir(datadir)
