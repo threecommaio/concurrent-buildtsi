@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
 	"path/filepath"
 	"runtime"
@@ -19,6 +20,7 @@ type Database struct {
 }
 
 var (
+	version        = "0.0.0"
 	datadir        string
 	waldir         string
 	maxLogFileSize int
@@ -73,7 +75,14 @@ func main() {
 	flag.BoolVar(&verbose, "verbose", false, "enable verbose mode that prints out stdout from [influx_inspect]")
 	flag.StringVar(&database, "database", "", "run on a specific database (optional)")
 	flag.StringVar(&shards, "shards", "", "run on a specific set of shards (optional)")
+	v := flag.Bool("version", false, "prints current version")
+
 	flag.Parse()
+
+	if *v {
+		fmt.Println(version)
+		os.Exit(0)
+	}
 
 	if shards != "" {
 		shardsOpt = strings.Split(shards, ",")
