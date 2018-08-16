@@ -49,7 +49,7 @@ func buildsiRun(wg *sync.WaitGroup, done chan bool, database string, shard int) 
 	cmd.Stdin = strings.NewReader("y")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatalf("cmd.Run() failed with %s\n", err)
+		log.Fatalf("cmd.Run() failed with %s %s\n", err, out)
 	}
 
 	if verbose {
